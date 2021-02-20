@@ -34,6 +34,8 @@ public class xiaogang {
         } catch (IOException e){
             e.printStackTrace();
         } finally {
+            baos.close();
+            is.close();
             socket.close();
         }
     }

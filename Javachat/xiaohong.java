@@ -7,8 +7,12 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class xiaohong {
+    //login
+    private String admin;
+
     //send
     private InetAddress inet;
     private Socket socket;
@@ -17,13 +21,26 @@ public class xiaohong {
     private   InputStream is;
     private ByteArrayOutputStream baos;
     private ServerSocket ss;
-    public void send() throws IOException {
+
+    //输入自己的用户名登陆
+    public void login() throws IOException {
+        System.out.println("请输入用户名：");
+        Scanner input=new Scanner(System.in);
+        String str=input.next();
+        admin = str;
+        send(admin);
+
+    }
+
+    //发送我是小红
+    public void send(String message) throws IOException {
         try {
+            //message = "你好，我是小红";
             inet = InetAddress.getByName("127.0.0.1");
             socket = new Socket(inet,1249);
             os = socket.getOutputStream();
             //转换成输出流
-            os.write("你好，我是小红".getBytes());
+            os.write(message.getBytes());
 
 
         } catch (IOException e){
@@ -33,6 +50,8 @@ public class xiaohong {
             socket.close();
         }
     }
+
+    //接收信息
     public void get() throws IOException {
         try {
 
@@ -57,10 +76,15 @@ public class xiaohong {
         }
     }
 
+
+
+
     public static void main(String[] args) throws IOException {
         xiaohong xh = new xiaohong();
-        xh.send();
-        xh.get();
+        xh.login();
+//        xh.send();
+//        xh.get();
+
     }
 
 }
